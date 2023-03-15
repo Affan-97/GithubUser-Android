@@ -1,5 +1,6 @@
 package com.affan.androidfund_dicoding_fp.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,7 @@ class UserAdapter(private val listUser: List<ItemsItem>): RecyclerView.Adapter<U
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-
+        Log.d("RVDONE", "onCreateViewHolder: ")
         return ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_row,parent,false))
     }
 
