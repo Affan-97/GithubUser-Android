@@ -24,7 +24,7 @@ class UserAdapter(private val listUser: List<ItemsItem>): RecyclerView.Adapter<U
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        Log.d("RVDONE", "onCreateViewHolder: ")
+
         return ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_row,parent,false))
     }
 

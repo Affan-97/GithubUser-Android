@@ -7,17 +7,16 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.affan.androidfund_dicoding_fp.fragment.BaseFragment
 
 class PagerAdapter(activity: AppCompatActivity):FragmentStateAdapter(activity) {
+    var username: String = ""
     override fun getItemCount(): Int {
         return 2
     }
-
     override fun createFragment(position: Int): Fragment {
       var fragment:Fragment = BaseFragment()
         fragment.arguments = Bundle().apply {
-            putInt(BaseFragment.ARG_SECTION_NUMBER, position + 1)
-
+            putInt(BaseFragment.ARG_SECTION_NUMBER, position)
+            putString(BaseFragment.USERNAME, username)
         }
         return fragment
     }
-
 }

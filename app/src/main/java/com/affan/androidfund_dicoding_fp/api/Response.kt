@@ -1,7 +1,6 @@
 package com.affan.androidfund_dicoding_fp.api
 
 import com.google.gson.annotations.SerializedName
-
 data class UserResponse(
 
     @field:SerializedName("total_count")
@@ -13,7 +12,6 @@ data class UserResponse(
     @field:SerializedName("items")
     val items: List<ItemsItem>
 )
-
 data class ItemsItem(
     @field:SerializedName("login")
     val login: String,
@@ -72,10 +70,7 @@ data class ItemsItem(
 
     @field:SerializedName("site_admin")
     val siteAdmin: Boolean
-
-
 )
-
 data class Detail(
 
     @field:SerializedName("gists_url")

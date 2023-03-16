@@ -1,10 +1,8 @@
 <resources>
-    <string name="app_name">AndroidFUND-Dicoding-FP</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="tab_text_1">Home</string>
-    <string name="tab_text_2">Profile</string>
-    <string name="tab_text_3">Setting</string>
-    <string name="content_tab_home">Welcome Home</string>
-    <string name="content_tab_profile">Change your Profile here</string>
-    <string name="content_tab_text">This is Tab %1$d</string>
+    <string name="app_name">GitHub Users</string>
+
+    <string name="tab_text_1">Follower</string>
+    <string name="tab_text_2">Following</string>
+    <string name="search">cari</string>
+    <string name="home_menu">Home</string>
 </resources>
