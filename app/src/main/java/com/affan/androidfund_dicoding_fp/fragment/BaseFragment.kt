@@ -68,8 +68,16 @@ class BaseFragment : Fragment() {
                 }
             }
         }
+        mainViewModel.loading.observe(viewLifecycleOwner) {
+            if (it != null) {
+                showLoading(it)
+            }
+        }
     }
-
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.rvUser.alpha = if (isLoading) 0.5f else 1.0f
+    }
     private fun showSelectedHero(user: ItemsItem) {
 
         val intent = Intent(activity, DetailActivity::class.java)
