@@ -12,10 +12,10 @@ class PagerAdapter(activity: AppCompatActivity):FragmentStateAdapter(activity) {
         return 2
     }
     override fun createFragment(position: Int): Fragment {
-      var fragment:Fragment = BaseFragment()
+      val fragment:Fragment = BaseFragment()
         fragment.arguments = Bundle().apply {
             putInt(BaseFragment.ARG_SECTION_NUMBER, position)
-            putString(BaseFragment.USERNAME, username)
+            putString(BaseFragment.NAME, username)
         }
         return fragment
     }

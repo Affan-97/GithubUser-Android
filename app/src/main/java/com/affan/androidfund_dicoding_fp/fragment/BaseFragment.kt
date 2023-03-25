@@ -17,38 +17,41 @@ import com.affan.androidfund_dicoding_fp.viewmodel.MainViewModel
 
 class BaseFragment : Fragment() {
     private lateinit var mainViewModel: MainViewModel
-    lateinit var binding: FragmentBaseBinding
+    private lateinit var binding: FragmentBaseBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentBaseBinding.inflate(inflater, container, false)
-        binding.rvUser.layoutManager = LinearLayoutManager(requireActivity())
-        binding.rvUser.setHasFixedSize(true)
+
+        binding.apply {
+            rvUser.layoutManager = LinearLayoutManager(requireActivity())
+            rvUser.setHasFixedSize(true)
+        }
         mainViewModel = ViewModelProvider(
             this, ViewModelProvider.NewInstanceFactory()
-        ).get(MainViewModel::class.java)
+        )[MainViewModel::class.java]
         return binding.root
     }
 
-    companion object {
-        const val ARG_SECTION_NUMBER = "section_number"
-        const val USERNAME = "app_name"
-    }
+
     private fun setData(userList: List<ItemsItem>) {
-        val adapter = UserAdapter(userList)
+        val adapter = UserAdapter(userList) {
+            showSelectedHero(it)
+        }
         binding.rvUser.adapter = adapter
-        adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
+       /* adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ItemsItem) {
                 showSelectedHero(data)
             }
-        })
+        })*/
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val index = arguments?.getInt(ARG_SECTION_NUMBER, 0)
-        val name = arguments?.getString(USERNAME)
+        val name = arguments?.getString(NAME)
         if (index == 0) {
             if (name != null) {
                 mainViewModel.getFollowers(name)
@@ -81,10 +84,13 @@ class BaseFragment : Fragment() {
     private fun showSelectedHero(user: ItemsItem) {
 
         val intent = Intent(activity, DetailActivity::class.java)
-        intent.putExtra("USERNAME", user.login)
+        intent.putExtra(DetailActivity.USERNAME, user.login)
         startActivity(intent)
 
     }
-
+    companion object {
+        const val ARG_SECTION_NUMBER = "section_number"
+        const val NAME = "app_name"
+    }
 
 }

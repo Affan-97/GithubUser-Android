@@ -26,26 +26,25 @@ class DetailActivity : AppCompatActivity() {
             R.string.tab_text_1,
             R.string.tab_text_2,
         )
+        const val USERNAME = "username"
     }
 
-    @SuppressLint("SetTextI18n")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val name = intent.getStringExtra("USERNAME").toString()
+        val name = intent.getStringExtra(USERNAME).toString()
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.title = "Detail $name"
+        supportActionBar?.title = getString(R.string.detail_title,name)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            MainViewModel::class.java
-        )
+        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
         mainViewModel.getUser(name)
         mainViewModel.detailUser.observe(this) {
             if (it != null) {
                 binding.tvName.text = it.name
                 binding.tvUsername.text = it.login
-                binding.tvFollower.text = "${it.followers.toString()} Followers"
-                binding.tvFollowing.text = "${it.following.toString()} Following"
+                binding.tvFollower.text = getString(R.string.follower_tag,it.followers.toString())
+                binding.tvFollowing.text = getString(R.string.following_tag,it.following.toString())
                 Glide.with(this).load(it.avatarUrl).into(binding.profileImg)
             }
         }
@@ -54,7 +53,7 @@ class DetailActivity : AppCompatActivity() {
         }
         val pagerAdapter = PagerAdapter(this)
         pagerAdapter.username = name
-        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+        val viewPager: ViewPager2 = binding.viewPager
         viewPager.adapter = pagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         TabLayoutMediator(tabs, viewPager) { tab, position ->
@@ -65,8 +64,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val infater = menuInflater
-        infater.inflate(R.menu.action_menu, menu)
+        menuInflater.inflate(R.menu.action_menu, menu)
         return true
 
     }

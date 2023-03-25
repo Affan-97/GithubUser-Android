@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         android:background="@color/dark"
         tools:context=".MainActivity">
+
     <LinearLayout
             android:id="@+id/disp_error"
             android:visibility="gone"
@@ -24,12 +25,12 @@
             android:src="@drawable/baseline_warning_amber_24"
 
 
-                />
+                android:contentDescription="@string/error_img_disp" />
         <TextView
                 android:id="@+id/text_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Error"
+                android:text="@string/error"
                 android:textAlignment="center"
                 android:textSize="24sp"
                 android:textStyle="bold"

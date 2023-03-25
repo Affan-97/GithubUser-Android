@@ -5,4 +5,11 @@
     <string name="tab_text_2">Following</string>
     <string name="search">cari</string>
     <string name="home_menu">Home</string>
+    <string name="detail_title">Detail %s</string>
+    <string name="follower_tag">%s Followers</string>
+    <string name="following_tag">%s Following</string>
+    <string name="main_title">Github User</string>
+    <string name="error">Error</string>
+    <string name="error_img_disp">Image That Display error logo</string>
+    <string name="user_pictures">User Pictures</string>
 </resources>

@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,16 +26,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.elevation = 0f
-        supportActionBar?.title = "Github User"
+        supportActionBar?.title =getString(R.string.main_title)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.rvUser.layoutManager = LinearLayoutManager(this)
 
         binding.rvUser.setHasFixedSize(true)
 
-        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            MainViewModel::class.java
-        )
+        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
         mainViewModel.listUser.observe(this) {
             if (it != null) {
                 setData(it)
@@ -47,27 +44,38 @@ class MainActivity : AppCompatActivity() {
         }
         mainViewModel.error.observe(this) {
             if (it) {
-                binding.rvUser.visibility = View.GONE
-                binding.dispError.visibility = View.VISIBLE
+               showUI(it)
                 mainViewModel.textError.observe(this) {
                     binding.textError.text = it
                 }
             } else {
-                binding.rvUser.visibility = View.VISIBLE
-                binding.dispError.visibility = View.GONE
+                showUI(it)
             }
         }
     }
-
+private fun showUI(isShow:Boolean){
+    binding.apply {
+        if (isShow){
+            rvUser.visibility = View.GONE
+            dispError.visibility = View.VISIBLE
+        }else{
+            rvUser.visibility = View.VISIBLE
+            dispError.visibility = View.GONE
+        }
+    }
+}
 
     private fun setData(userList: List<ItemsItem>) {
-        val adapter = UserAdapter(userList)
+        val adapter = UserAdapter(userList,{
+            showSelectedHero(it)
+        })
         binding.rvUser.adapter = adapter
-        adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
+      /*  adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ItemsItem) {
                 showSelectedHero(data)
             }
-        })
+        })*/
+
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -77,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showSelectedHero(user: ItemsItem) {
         val intent = Intent(this@MainActivity, DetailActivity::class.java)
-        intent.putExtra("USERNAME", user.login)
+        intent.putExtra(DetailActivity.USERNAME, user.login)
         startActivity(intent)
     }
 
