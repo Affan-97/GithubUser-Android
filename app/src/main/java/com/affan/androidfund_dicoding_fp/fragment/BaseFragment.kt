@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.affan.androidfund_dicoding_fp.DetailActivity
+import com.affan.androidfund_dicoding_fp.ui.DetailActivity
 import com.affan.androidfund_dicoding_fp.adapter.UserAdapter
 import com.affan.androidfund_dicoding_fp.api.ItemsItem
 import com.affan.androidfund_dicoding_fp.databinding.FragmentBaseBinding
@@ -39,12 +39,6 @@ class BaseFragment : Fragment() {
             showSelectedHero(it)
         }
         binding.rvUser.adapter = adapter
-       /* adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: ItemsItem) {
-                showSelectedHero(data)
-            }
-        })*/
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -5,6 +5,11 @@
         <item android:id="@+id/menu_main"
                 android:title="@string/home_menu"
                 android:icon = "@drawable/baseline_home_24"
-                app:showAsAction="always" />
+                app:showAsAction="ifRoom" />
+        <item
+                android:id="@+id/dark_btn"
+                android:icon="@drawable/ic_mode"
+                android:title="@string/night_mode"
+                app:showAsAction="collapseActionView|ifRoom"/>
     </group>
 </menu>

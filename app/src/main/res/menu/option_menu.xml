@@ -2,13 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 
         xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:menuCategory="container">
     <item
             android:id="@+id/search"
-            android:icon="@drawable/baseline_search_24"
+            android:icon="@drawable/ic_search"
             android:title="@string/search"
             app:actionViewClass="androidx.appcompat.widget.SearchView"
             app:showAsAction="collapseActionView|always"/>
-    <group android:menuCategory="container">
+    <item
+            android:id="@+id/fav"
+            android:icon="@drawable/ic_favorite_top"
+            android:title="@string/favorite"
+
+            app:showAsAction="collapseActionView|ifRoom"/>
+    <item
+            android:id="@+id/dark_btn"
+            android:icon="@drawable/ic_mode"
+            android:title="@string/night_mode"
+            app:showAsAction="collapseActionView|ifRoom"/>
+
 
     </group>
 </menu>

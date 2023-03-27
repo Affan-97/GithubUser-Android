@@ -1,26 +1,40 @@
-package com.affan.androidfund_dicoding_fp
+package com.affan.androidfund_dicoding_fp.ui
 
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.affan.androidfund_dicoding_fp.R
 import com.affan.androidfund_dicoding_fp.adapter.UserAdapter
 import com.affan.androidfund_dicoding_fp.api.ItemsItem
 import com.affan.androidfund_dicoding_fp.databinding.ActivityMainBinding
+import com.affan.androidfund_dicoding_fp.factory.PrefViewModelFactory
+
+import com.affan.androidfund_dicoding_fp.helper.ThemeHelper
+import com.affan.androidfund_dicoding_fp.preferences.SettingPreferences
 import com.affan.androidfund_dicoding_fp.viewmodel.MainViewModel
+import com.affan.androidfund_dicoding_fp.viewmodel.PrefViewModel
 
-
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 class MainActivity : AppCompatActivity() {
 
 
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var prefViewModel: PrefViewModel
 
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +66,14 @@ class MainActivity : AppCompatActivity() {
                 showUI(it)
             }
         }
+        val pref = SettingPreferences.getInstance(dataStore)
+        prefViewModel = ViewModelProvider(this,PrefViewModelFactory(pref))[PrefViewModel::class.java]
+        val theme = ThemeHelper()
+
+        prefViewModel.getTheme().observe(this){
+        theme.switchTheme(it)
+
+        }
     }
 private fun showUI(isShow:Boolean){
     binding.apply {
@@ -66,9 +88,9 @@ private fun showUI(isShow:Boolean){
 }
 
     private fun setData(userList: List<ItemsItem>) {
-        val adapter = UserAdapter(userList,{
+        val adapter = UserAdapter(userList) {
             showSelectedHero(it)
-        })
+        }
         binding.rvUser.adapter = adapter
       /*  adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ItemsItem) {
@@ -94,7 +116,12 @@ private fun showUI(isShow:Boolean){
         inflater.inflate(R.menu.option_menu, menu)
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu.findItem(R.id.search).actionView as SearchView
+
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.setIconifiedByDefault(true)
+        searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn).setColorFilter(Color.RED)
+        val searchIcon = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_button)
+        searchIcon.setImageResource(R.drawable.ic_arrow)
         searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             run {
                 if (hasFocus) {
@@ -131,7 +158,26 @@ private fun showUI(isShow:Boolean){
             }
 
         })
+
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+
+            R.id.fav -> {
+
+                val intent = Intent(this@MainActivity, FavoriteActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.dark_btn->{
+                val theme = ThemeHelper()
+                val nightMode = ThemeHelper.isNight
+
+                prefViewModel.saveTheme(nightMode)
+                theme.switchTheme(nightMode)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

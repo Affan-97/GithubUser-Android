@@ -12,4 +12,10 @@
     <string name="error">Error</string>
     <string name="error_img_disp">Image That Display error logo</string>
     <string name="user_pictures">User Pictures</string>
+    <string name="favorite">favorite</string>
+    <string name="setting">Setting</string>
+    <string name="favorite_button">Favorite Button</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="empty_fav">Belum Ada User Favorite</string>
+    <string name="splash_screen">Splash Screen</string>
 </resources>
