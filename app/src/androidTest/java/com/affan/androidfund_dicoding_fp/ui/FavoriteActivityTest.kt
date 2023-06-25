@@ -45,23 +45,23 @@ class FavoriteActivityTest {
     }
 
     @Test
-    fun checkIfDetailActivityIsDisplayed() {
+    fun checkActivityDisplay() {
         onView(withId(R.id.detail_activity)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun checkIfNameTextViewIsDisplayed() {
+    fun checknameDisplay() {
         onView(withId(R.id.tv_name)).check(matches(isDisplayed()))
     }
 
     @Test
-    fun checkIfUsernameTextViewIsDisplayed() {
+    fun checkUsernameDisplay() {
         onView(withId(R.id.tv_username)).check(matches(isDisplayed()))
     }
 
 
     @Test
-    fun checkIfFabAddButtonIsDisplayed() {
+    fun checkFABDisplay() {
         onView(withId(R.id.fab_add)).check(matches(isDisplayed()))
     }
 
