@@ -17,7 +17,7 @@ If you build this application for the first time an error will occur. Because th
 
 Once you have the api key, follow these steps:
 * In your Project Folder, Open local.properties file
-* Inside your local properties, set apiKey variable with """token <your Api>"""
+* Inside your local properties, set apiKey variable with ```token <your Api token>```
 ```
 apiKey = your-api-key
 ```
